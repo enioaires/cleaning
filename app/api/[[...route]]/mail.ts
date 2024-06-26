@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import sgMail from "@sendgrid/mail";
+import axios from "axios";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 
@@ -11,23 +11,47 @@ const mailSchema = z.object({
   message: z.string().min(2).max(500),
 });
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+const app = new Hono();
 
-const app = new Hono().post("/", zValidator("json", mailSchema), async (c) => {
+app.post("/", zValidator("json", mailSchema), async (c) => {
   const parsedData = c.req.valid("json");
 
-  const msg = {
-    to: "enioaires12@gmail.com", // Change to your recipient
-    from: "your-email@example.com", // Change to your verified sender
-    subject: "New Contact Form Submission",
-    text: `Name: ${parsedData.firstName} ${parsedData.lastName}\nEmail: ${parsedData.email}\nPhone: ${parsedData.phone}\nMessage: ${parsedData.message}`,
+  const templateParams = {
+    from_name: `${parsedData.firstName} ${parsedData.lastName}`,
+    from_email: parsedData.email,
+    phone: parsedData.phone,
+    message: parsedData.message,
+    to_email: "enioaires12@gmail.com",
+  };
+
+  const payload = {
+    service_id: process.env.EMAIL_SERVICE_ID!,
+    template_id: process.env.EMAIL_TEMPLATE_ID!,
+    user_id: process.env.EMAIL_USER_ID!,
+    template_params: templateParams,
   };
 
   try {
-    await sgMail.send(msg);
-    return c.json({ success: true });
+    const response = await axios.post(
+      "https://api.emailjs.com/api/v1.0/email/send",
+      payload,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Response from EmailJS API:", response.data);
+
+    if (response.status === 200) {
+      return c.json({ success: true });
+    } else {
+      // console.error("Failed to send email:", response.data);
+      return c.json({ success: false }, 500);
+    }
   } catch (error) {
-    console.error(error);
+    // console.error("Error sending email:", error);
     return c.json({ success: false }, 500);
   }
 });

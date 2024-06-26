@@ -7,19 +7,19 @@ export const Services: FC = ({}) => {
     {
       title: "House cleaning",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, voluptatibus!",
+        "Keep your home clean and organized with our residential cleaning services. Our skilled team ensures a safe and hygienic environment for you and your family.",
       Icon: HouseIcon,
     },
     {
       title: "Office cleaning",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, voluptatibus!",
+        "Maintain your workspace spotless with our professional office cleaning services. We ensure a clean and productive work environment.",
       Icon: Building2Icon,
     },
     {
       title: "Building cleaning",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque, voluptatibus!",
+        "We offer comprehensive cleaning services for commercial and residential buildings, taking care of all common areas, hallways, stairs, and facades.",
       Icon: BuildingIcon,
     },
   ];

@@ -1,9 +1,8 @@
 "use client";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,17 +13,32 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useSendEmail } from "@/features/mail/api/use-send-email";
+import { toast } from "sonner";
+import emailjs from "emailjs-com";
 
 const formSchema = z.object({
-  firstName: z.string().min(2).max(50),
-  lastName: z.string().min(2).max(50),
-  email: z.string().email(),
-  phone: z.string(),
-  message: z.string().min(2).max(500),
+  firstName: z
+    .string()
+    .min(2, { message: "First name must be at least 2 characters" })
+    .max(50, { message: "First name must be at most 50 characters" }),
+  lastName: z
+    .string()
+    .min(2, { message: "Last name must be at least 2 characters" })
+    .max(50, { message: "Last name must be at most 50 characters" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  phone: z
+    .string()
+    .regex(/^\+?[1-9]\d{1,14}$/, { message: "Invalid phone number" }),
+  message: z
+    .string()
+    .min(2, { message: "Message must be at least 2 characters" })
+    .max(500, { message: "Message must be at most 500 characters" }),
 });
 
 export const ContactForm: FC = ({}) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,18 +50,37 @@ export const ContactForm: FC = ({}) => {
     },
   });
 
-  const { mutateAsync } = useSendEmail();
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // @ts-ignore
-    await mutateAsync(values);
+    setIsSubmitting(true);
+    setErrorMessage(null);
+
+    try {
+      await emailjs.send(
+        "service_nsl40lj", // Service ID
+        "template_da5xa0s", // Template ID
+        {
+          from_name: `${values.firstName} ${values.lastName}`,
+          email: values.email,
+          phone: values.phone,
+          message: values.message,
+        },
+        "JfLi-mX-UyV38iH_g" // User ID
+      );
+
+      toast.success("Your message has been sent successfully!");
+    } catch (err) {
+      setErrorMessage("Failed to send the message. Please try again later.");
+      console.error("Email send error:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-center gap-y-4"
+        className="flex flex-col justify-center items-center gap-y-4 max-w-lg mx-auto"
       >
         <div className="flex items-center gap-4">
           <FormField
@@ -83,7 +116,7 @@ export const ContactForm: FC = ({}) => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input placeholder="Mail Adress" {...field} />
+                  <Input placeholder="Mail Address" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -118,7 +151,10 @@ export const ContactForm: FC = ({}) => {
             </FormItem>
           )}
         />
-        <Button type="submit">Send a message</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Sending..." : "Send us a message"}
+        </Button>
+        {errorMessage && <div className="text-red-500">{errorMessage}</div>}
       </form>
     </Form>
   );

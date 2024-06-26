@@ -1,26 +1,19 @@
+/* eslint-disable @next/next/no-img-element */
 import { FC } from "react";
-import Image from "next/image";
-import { CustomPlaceholder } from "react-placeholder-image";
 
 export const Banner: FC = ({}) => {
   return (
     <div className="relative w-full items-center justify-center flex">
-      {/* <Image
-        src="/banner.jpg"
-        width={1270}
-        height={513}
+      <img
+        src="/banner.png"
         alt="logo"
-        className="rounded-lg"
-      /> */}
-      <CustomPlaceholder
-        width={1270}
-        height={513}
-        alt="logo"
-        className="rounded-lg"
+        className="rounded-lg w-[1270px] h-[513px]"
       />
       <div className="absolute inset-0 bg-black bg-opacity-50 rounded-lg flex flex-col items-center justify-center text-white">
-        <h1 className="text-3xl font-bold">Lorem Ipsum Title</h1>
-        <p className="text-xl">Lorem ipsum subtitle goes here</p>
+        <h1 className="text-3xl font-bold">Fresh & Clean Homes</h1>
+        <p className="text-xl">
+          We bring freshness and cleanliness to your doorstep.
+        </p>
       </div>
     </div>
   );
