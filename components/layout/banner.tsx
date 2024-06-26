@@ -5,7 +5,7 @@ export const Banner: FC = ({}) => {
   return (
     <div className="relative w-full items-center justify-center flex">
       <img
-        src="/banner.png"
+        src="/banner8.jpeg"
         alt="logo"
         className="rounded-lg w-[1270px] h-[513px]"
       />
