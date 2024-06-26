@@ -80,7 +80,7 @@ export const ContactForm: FC = ({}) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-center gap-y-4 max-w-lg mx-auto"
+        className="flex flex-col justify-center items-center gap-y-4"
       >
         <div className="flex items-center gap-4">
           <FormField

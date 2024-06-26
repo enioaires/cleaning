@@ -24,7 +24,10 @@ export const Services: FC = ({}) => {
     },
   ];
   return (
-    <div className="flex justify-center py-10 px-2 md:px-0 cursor-default">
+    <div
+      className="flex justify-center py-10 px-2 md:px-0 cursor-default"
+      id="services"
+    >
       <div className="flex justify-between w-full gap-4 px-12">
         {services.map((service, index) => (
           <div

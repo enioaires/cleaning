@@ -4,7 +4,7 @@ import { ContactForm } from "./contact-form";
 
 export const Contact: FC = ({}) => {
   return (
-    <div className="flex justify-center items-center gap-y-4">
+    <div className="flex justify-center items-center" id="contact">
       <ContactInfo />
       <ContactForm />
     </div>

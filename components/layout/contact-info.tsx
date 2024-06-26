@@ -1,21 +1,45 @@
-import { ClockIcon, LocateIcon, MailIcon, PhoneIcon } from "lucide-react";
+"use client";
 import { FC } from "react";
+import { ClockIcon, LocateIcon, MailIcon, PhoneIcon } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { toast } from "sonner";
 
 export const ContactInfo: FC = ({}) => {
   const items = [
     {
       title: "Office Adress",
-      description: "123 Main Street, Anytown, USA",
+      description:
+        "9552 W Tropicana Ave, Apt. 1049, Las Vegas, NV 89147, United States",
       icon: LocateIcon,
     },
-    { title: "Phone Number", description: "(123) 456-7890", icon: PhoneIcon },
-    { title: "Email", description: "info@example.com", icon: MailIcon },
+    {
+      title: "Phone Number",
+      description: "1 (702) 352 6255",
+      secondDescription: "1 (702) 807 0249",
+      icon: PhoneIcon,
+    },
+    {
+      title: "Email",
+      description: "soraiavieiraus@gmail.com",
+      secondDescription: "lenaoliveira200283@gmail.com",
+      icon: MailIcon,
+    },
     {
       title: "Opening Time",
       description: "9:00 AM - 5:00 PM",
       icon: ClockIcon,
     },
   ];
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    toast.success("Copied to clipboard");
+  };
 
   return (
     <div className="flex flex-col gap-y-4 cursor-default">
@@ -33,9 +57,33 @@ export const ContactInfo: FC = ({}) => {
             <item.icon className="w-8 h-8 text-primary" />
             <div>
               <h3 className="text-lg font-medium">{item.title}</h3>
-              <p className="text-sm text-muted-foreground">
-                {item.description}
-              </p>
+              <TooltipProvider>
+                <div className="flex flex-col gap-y-1 items-start">
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <p
+                        className="text-sm text-muted-foreground hover:cursor-pointer hover:text-primary text-left max-w-[222px]"
+                        onClick={() => copyToClipboard(item.description)}
+                      >
+                        {item.description}
+                      </p>
+                    </TooltipTrigger>
+                    <TooltipContent>Click to copy</TooltipContent>
+                  </Tooltip>
+
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <p
+                        className="text-sm text-muted-foreground hover:cursor-pointer hover:text-primary"
+                        onClick={() => copyToClipboard(item.description ?? "")}
+                      >
+                        {item.secondDescription ?? ""}
+                      </p>
+                    </TooltipTrigger>
+                    <TooltipContent>Click to copy</TooltipContent>
+                  </Tooltip>
+                </div>
+              </TooltipProvider>
             </div>
           </div>
         ))}

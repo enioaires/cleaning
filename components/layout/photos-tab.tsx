@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { FC, useEffect, useState } from "react";
 import {
@@ -29,6 +30,14 @@ export const PhotosTab: FC = ({}) => {
     });
   }, [api]);
 
+  const photos = [
+    { src: "/photo1.jpeg", title: "Photo 1" },
+    { src: "/photo1.jpeg", title: "Photo 1" },
+    { src: "/photo1.jpeg", title: "Photo 1" },
+    { src: "/photo2.jpeg", title: "Photo 2" },
+    { src: "/photo3.jpeg", title: "Photo 3" },
+  ];
+
   return (
     <div className="mt-6 flex flex-col items-center">
       <Carousel
@@ -41,17 +50,12 @@ export const PhotosTab: FC = ({}) => {
         ]}
       >
         <CarouselContent className="flex items-center justify-center">
-          {Array.from({ length: 5 }).map((_, index) => (
+          {photos.map((photo, index) => (
             <CarouselItem
               key={index}
               className="flex items-center justify-center"
             >
-              <CustomPlaceholder
-                width={600}
-                height={400}
-                alt="placeholder"
-                className="rounded-lg max-w-[600px] w-[600px] h-[400px] max-h-[400px]"
-              />
+              <img src={photo.src} alt={photo.title} />
             </CarouselItem>
           ))}
         </CarouselContent>
