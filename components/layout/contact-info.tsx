@@ -1,6 +1,13 @@
 "use client";
 import { FC } from "react";
-import { ClockIcon, LocateIcon, MailIcon, PhoneIcon } from "lucide-react";
+import {
+  ClockIcon,
+  FacebookIcon,
+  InstagramIcon,
+  LocateIcon,
+  MailIcon,
+  PhoneIcon,
+} from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -33,6 +40,18 @@ export const ContactInfo: FC = ({}) => {
       title: "Opening Time",
       description: "9:00 AM - 5:00 PM",
       icon: ClockIcon,
+    },
+    {
+      title: "Instagram",
+      description: "1 (702) 352 6255",
+      secondDescription: "1 (702) 807 0249",
+      icon: InstagramIcon,
+    },
+    {
+      title: "Facebook",
+      description: "soraiavieiraus@gmail.com",
+      secondDescription: "lenaoliveira200283@gmail.com",
+      icon: FacebookIcon,
     },
   ];
 

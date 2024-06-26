@@ -1,7 +1,6 @@
 import { Banner } from "@/components/layout/banner";
 import { Contact } from "@/components/layout/contact";
 import { Display } from "@/components/layout/display";
-import { Header } from "@/components/layout/header";
 import { Services } from "@/components/layout/services";
 
 export default function Home() {
@@ -12,9 +11,9 @@ export default function Home() {
       <div className="py-12" />
       <Services />
       <div className="py-8" />
-      <Contact />
-      <div className="py-8" />
       <Display />
+      <div className="py-8" />
+      <Contact />
     </div>
   );
 }
