@@ -26,9 +26,7 @@ export const PhotosTab: FC = ({}) => {
     { src: "/photo18.jpeg", title: "Fridge" },
   ];
 
-  const [isZoomed, setIsZoomed] = useState(
-    photos.reduce((acc, _, index) => ({ ...acc, [index]: false }), {})
-  );
+  const [isZoomed, setIsZoomed] = useState<boolean[]>(photos.map(() => false));
   const [showAllPhotos, setShowAllPhotos] = useState(false);
   const [loading, setLoading] = useState(true);
 
