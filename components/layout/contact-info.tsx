@@ -61,7 +61,7 @@ export const ContactInfo: FC = ({}) => {
   };
 
   return (
-    <div className="flex flex-col gap-y-4 cursor-default">
+    <div className="flex flex-col gap-y-4 cursor-default px-4">
       <div>
         <h1 className="font-semibold text-2xl max-w-[400px]">
           Feel free to contact us with any kind of questions.
@@ -70,7 +70,7 @@ export const ContactInfo: FC = ({}) => {
           We will get back to you as soon as possible.
         </span>
       </div>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
         {items.map((item) => (
           <div key={item.title} className="flex items-center gap-4">
             <item.icon className="w-8 h-8 text-primary" />
@@ -90,17 +90,21 @@ export const ContactInfo: FC = ({}) => {
                     <TooltipContent>Click to copy</TooltipContent>
                   </Tooltip>
 
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <p
-                        className="text-sm text-muted-foreground hover:cursor-pointer hover:text-primary"
-                        onClick={() => copyToClipboard(item.description ?? "")}
-                      >
-                        {item.secondDescription ?? ""}
-                      </p>
-                    </TooltipTrigger>
-                    <TooltipContent>Click to copy</TooltipContent>
-                  </Tooltip>
+                  {item.secondDescription && (
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <p
+                          className="text-sm text-muted-foreground hover:cursor-pointer hover:text-primary"
+                          onClick={() =>
+                            copyToClipboard(item.secondDescription ?? "")
+                          }
+                        >
+                          {item.secondDescription}
+                        </p>
+                      </TooltipTrigger>
+                      <TooltipContent>Click to copy</TooltipContent>
+                    </Tooltip>
+                  )}
                 </div>
               </TooltipProvider>
             </div>

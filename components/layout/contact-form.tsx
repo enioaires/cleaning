@@ -80,14 +80,14 @@ export const ContactForm: FC = ({}) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-center items-center gap-y-4"
+        className="flex flex-col justify-center items-center gap-4 w-full max-w-md mx-auto p-4"
       >
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
           <FormField
             control={form.control}
             name="firstName"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormControl>
                   <Input placeholder="First Name" {...field} />
                 </FormControl>
@@ -99,7 +99,7 @@ export const ContactForm: FC = ({}) => {
             control={form.control}
             name="lastName"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormControl>
                   <Input placeholder="Last Name" {...field} />
                 </FormControl>
@@ -109,12 +109,12 @@ export const ContactForm: FC = ({}) => {
           />
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormControl>
                   <Input placeholder="Mail Address" {...field} />
                 </FormControl>
@@ -126,7 +126,7 @@ export const ContactForm: FC = ({}) => {
             control={form.control}
             name="phone"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormControl>
                   <Input placeholder="Phone Number" {...field} />
                 </FormControl>
@@ -139,13 +139,9 @@ export const ContactForm: FC = ({}) => {
           control={form.control}
           name="message"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="w-full">
               <FormControl>
-                <Textarea
-                  className="w-[420px]"
-                  placeholder="Message"
-                  {...field}
-                />
+                <Textarea className="w-full" placeholder="Message" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -10,7 +10,7 @@ export const Display: FC = ({}) => {
       id="album"
     >
       <h1 className="font-bold text-3xl">Our Album</h1>
-      <Tabs defaultValue="photos" className="w-[400px]">
+      <Tabs defaultValue="photos" className="w-full">
         <TabsList className="flex items-center gap-x-12 bg-transparent">
           <TabsTrigger value="photos">Photos</TabsTrigger>
           <TabsTrigger value="videos">Videos</TabsTrigger>

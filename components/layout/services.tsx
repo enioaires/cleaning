@@ -23,20 +23,21 @@ export const Services: FC = ({}) => {
       Icon: BuildingIcon,
     },
   ];
+
   return (
     <div
-      className="flex justify-center py-10 px-2 md:px-0 cursor-default"
+      className="flex flex-col items-center py-10 px-2 sm:px-6 lg:px-8 cursor-default"
       id="services"
     >
-      <div className="flex justify-between w-full gap-4 px-12">
+      <div className="flex flex-col md:flex-row justify-between w-full gap-4">
         {services.map((service, index) => (
           <div
             key={index}
-            className="flex flex-col justify-center items-center border border-border rounded-lg p-4 shadow-md max-w-[320px] gap-y-2"
+            className="flex flex-col justify-center items-center border border-border rounded-lg p-4 shadow-md w-full md:max-w-[320px] gap-y-2"
           >
             <IconContainer icon={service.Icon} />
-            <h3 className="text-lg font-medium">{service.title}</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className="text-lg font-medium text-center">{service.title}</h3>
+            <p className="text-sm text-muted-foreground text-center">
               {service.description}
             </p>
           </div>
